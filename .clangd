@@ -1,0 +1,22 @@
+# clangd 配置文件
+# clangd 会自动查找项目根目录的 .clang-format 文件用于格式化
+# 无需显式配置 Format 选项
+
+# 诊断设置
+Diagnostics:
+  UnusedIncludes: Strict
+  MissingIncludes: None  # 禁用缺失头文件的警告（因为很多类型通过基类头文件间接包含）
+
+# 索引设置
+Index:
+  Background: Build
+
+# 代码补全设置
+Completion:
+  AllScopes: true
+
+# 内联提示设置
+InlayHints:
+  Enabled: true
+  ParameterNames: true
+  DeducedTypes: false

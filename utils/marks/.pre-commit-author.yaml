@@ -1,0 +1,14 @@
+# Pre-commit hook 配置示例
+# 将此文件复制到项目根目录的 .pre-commit-config.yaml 或添加到现有配置中
+
+repos:
+  - repo: local
+    hooks:
+      - id: author-linter
+        name: Author Linter
+        entry: bash -c 'python3 src/humanoid_controller/utils/author_linter.py --check --author "Fulong Yin" --org "IO-AI.tech" --recursive src/'
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [commit]
+

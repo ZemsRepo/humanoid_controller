@@ -1,0 +1,97 @@
+joy_teleop:
+  # XBox joystick patterns
+  # buttons[0] = A
+  # buttons[1] = B
+  # buttons[2] = X
+  # buttons[3] = Y
+  # buttons[4] = LB
+  # buttons[5] = RB
+  # buttons[6] = Left Stick press
+  # buttons[7] = Right Stick press
+  # buttons[8] = Select
+  # axes[0] = Left Stick X left -> right = 1 -> -1
+  # axes[1] = Left Stick Y up -> down = 1 -> -1
+  # axes[2] = Right Stick X left -> right = 1 -> -1
+  # axes[3] = Right Stick Y up -> down = 1 -> -1
+  # axes[4] = LT = 1 -> 0
+  # axes[5] = RT = 1 -> 0
+  ros__parameters:
+
+    walk:
+      type: topic
+      interface_type: geometry_msgs/msg/TwistStamped
+      topic_name: cmd_vel
+      deadman_buttons: [ 4 ]
+      axis_mappings:
+        twist-angular-z:
+          axis: 3
+          scale: 0.5
+          offset: 0.0
+        twist-linear-x:
+          axis: 1
+          scale: 0.5
+          offset: 0.0
+        twist-linear-y:
+          axis: 0
+          scale: 0.5
+          offset: 0.0
+
+    passive_controller:
+      type: service
+      interface_type: controller_manager_msgs/srv/SwitchController
+      service_name: /controller_manager/switch_controller
+      buttons: [ 4, 5 ]
+      service_request: { activate_controllers: [ passive_controller ],
+                         deactivate_controllers: [ standby_controller, damping_controller, motion_tracking_controller, stand_loop_controller, walking_controller ],
+                         strictness: 1,
+                         activate_asap: 1 }
+
+    standby_controller:
+      type: service
+      interface_type: controller_manager_msgs/srv/SwitchController
+      service_name: /controller_manager/switch_controller
+      buttons: [ 4, 0 ]
+      service_request: { activate_controllers: [ standby_controller ],
+                         deactivate_controllers: [ passive_controller, damping_controller, motion_tracking_controller, stand_loop_controller, walking_controller ],
+                         strictness: 1,
+                         activate_asap: 1 }
+
+    damping_controller:
+      type: service
+      interface_type: controller_manager_msgs/srv/SwitchController
+      service_name: /controller_manager/switch_controller
+      buttons: [ 4, 1 ]
+      service_request: { activate_controllers: [ damping_controller ],
+                         deactivate_controllers: [ passive_controller, standby_controller, motion_tracking_controller, stand_loop_controller, walking_controller ],
+                         strictness: 1,
+                         activate_asap: 1 }
+
+    walking_controller:
+      type: service
+      interface_type: controller_manager_msgs/srv/SwitchController
+      service_name: /controller_manager/switch_controller
+      buttons: [ 5, 0 ]
+      service_request: { activate_controllers: [ walking_controller ],
+                         deactivate_controllers: [ passive_controller, damping_controller, standby_controller, stand_loop_controller, motion_tracking_controller ],
+                         strictness: 1,
+                         activate_asap: 1 }
+
+    stand_loop_controller:
+      type: service
+      interface_type: controller_manager_msgs/srv/SwitchController
+      service_name: /controller_manager/switch_controller
+      buttons: [ 5, 2 ]
+      service_request: { activate_controllers: [ stand_loop_controller ],
+                         deactivate_controllers: [ passive_controller, damping_controller, standby_controller, motion_tracking_controller, walking_controller ],
+                         strictness: 1,
+                         activate_asap: 1 }
+
+    motion_tracking_controller:
+      type: service
+      interface_type: controller_manager_msgs/srv/SwitchController
+      service_name: /controller_manager/switch_controller
+      buttons: [ 5, 3 ]
+      service_request: { activate_controllers: [ motion_tracking_controller ],
+                         deactivate_controllers: [ passive_controller, damping_controller, standby_controller, stand_loop_controller, walking_controller ],
+                         strictness: 1,
+                         activate_asap: 1 }

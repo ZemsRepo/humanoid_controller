@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+    <name>humanoid_controller</name>
+    <version>1.0.0</version>
+    <description>TODO</description>
+    <maintainer email="TODO@TODO.com">TODO</maintainer>
+    <license>MIT</license>
+
+    <buildtool_depend>ament_cmake</buildtool_depend>
+    <build_depend>ament_cmake_auto</build_depend>
+
+    <depend>legged_rl_controllers</depend>
+    <depend>controller_manager_msgs</depend>
+    <depend>rosbag2-storage-mcap</depend>
+    <depend>nlohmann_json</depend>
+
+    <export>
+        <build_type>ament_cmake</build_type>
+    </export>
+</package>

@@ -1,0 +1,62 @@
+# Author Linter 配置文件
+# 用于定义默认的作者和组织信息
+
+# 默认作者信息（用于没有匹配到特定路径的文件）
+author: "Qiayuan Liao"
+organization: "Hybrid Robotics"
+source_url: "https://github.com/HybridRobotics/motion_tracking_controller"
+
+# 按路径分组的作者配置
+# 路径模式支持通配符，按顺序匹配，第一个匹配的配置会被使用
+path_groups:
+  # motion_tracking 任务
+  - path_pattern: "**/tasks/motion_tracking/**"
+    author: "Qiayuan Liao"
+    organization: "Hybrid Robotics"
+    source_url: "https://github.com/HybridRobotics/motion_tracking_controller"
+
+  # holosoma_locomotion 任务
+  - path_pattern: "**/tasks/holosoma_locomotion/**"
+    author: "Amazon FAR"
+    organization: "Amazon FAR"
+    source_url: "https://github.com/amazon-far/holosoma"
+  
+  # unitree_locomotion 任务
+  - path_pattern: "**/tasks/unitree_locomotion/**"
+    author: "Unitree Robotics"
+    organization: "Unitree Robotics"
+    source_url: "https://github.com/unitreerobotics/unitree_rl_gym"
+
+  # amp_locomotion 任务
+  - path_pattern: "**/tasks/amp_locomotion/**"
+    author: "Zitong Bai"
+    organization: "BUAA"
+    source_url: "https://github.com/zitongbai/legged_lab"
+  
+  # 可以添加更多路径模式
+  # - path_pattern: "**/utils/**"
+  #   author: "Another Author"
+  #   organization: "Another Org"
+
+# 要检查的文件扩展名（默认已包含所有C++扩展名）
+# extensions:
+#   - .h
+#   - .hpp
+#   - .cpp
+#   - .cc
+#   - .cxx
+#   - .c
+
+# 要排除的目录（相对于项目根目录）
+exclude_dirs:
+  - build/
+  - install/
+  - log/
+  - .git/
+  - build_*/
+
+# 要排除的文件模式
+exclude_patterns:
+  - "**/generated/**"
+  - "**/third_party/**"
+

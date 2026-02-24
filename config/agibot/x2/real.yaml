@@ -1,0 +1,133 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 200  # Hz
+
+    state_estimator:
+      type: legged_controllers/StateEstimator
+    passive_controller:
+      type: legged_controllers/StandbyController
+    damping_controller:
+      type: legged_controllers/StandbyController
+    standby_controller:
+      type: legged_controllers/StandbyController
+    walking_controller:
+      type: humanoid_controller/HolosomaLocomotionController
+    stand_loop_controller:
+      type: humanoid_controller/MotionTrackingController
+    motion_tracking_controller:
+      type: humanoid_controller/MotionTrackingController
+
+state_estimator:
+  ros__parameters:
+    model:
+      base_name: "pelvis"
+      six_dof_contact_names: [ "LL_FOOT", "LR_FOOT" ]
+    estimation:
+      position:
+        noise: 1e-2
+        frame_id: "mid360_link"
+
+passive_controller:
+  ros__parameters:
+    joint_names:
+      [ left_hip_pitch_joint, left_hip_roll_joint, left_hip_yaw_joint,
+        left_knee_joint, left_ankle_pitch_joint, left_ankle_roll_joint,
+        right_hip_pitch_joint, right_hip_roll_joint, right_hip_yaw_joint,
+        right_knee_joint, right_ankle_pitch_joint, right_ankle_roll_joint,
+        waist_yaw_joint, waist_roll_joint, waist_pitch_joint,
+        left_shoulder_pitch_joint, left_shoulder_roll_joint, left_shoulder_yaw_joint,
+        left_elbow_joint, left_wrist_roll_joint, left_wrist_pitch_joint, left_wrist_yaw_joint,
+        right_shoulder_pitch_joint, right_shoulder_roll_joint, right_shoulder_yaw_joint,
+        right_elbow_joint, right_wrist_roll_joint, right_wrist_pitch_joint, right_wrist_yaw_joint ]
+    default_position: [ -0.2, 0.3, 0.5, 0.6, -0.27, -0.13,
+                        -0.29, -0.15, 0.27, 0.65, -0.4, 0.14,
+                        0.84, 0.0, 0.0,
+                        -0.53, 0.0, -0.37, -2.3, 0.0, -0.26, -0.13,
+                        -0.64, 0.0, 0.43, -2.0, 0.0, -0.256, 0.0 ]
+    kp: [ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+          0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+          0.0, 0.0, 0.0,
+          0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+          0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]
+    kd: [ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+          0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+          0.0, 0.0, 0.0,
+          0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+          0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]
+
+damping_controller:
+  ros__parameters:
+    joint_names:
+      [ left_hip_pitch_joint, left_hip_roll_joint, left_hip_yaw_joint,
+        left_knee_joint, left_ankle_pitch_joint, left_ankle_roll_joint,
+        right_hip_pitch_joint, right_hip_roll_joint, right_hip_yaw_joint,
+        right_knee_joint, right_ankle_pitch_joint, right_ankle_roll_joint,
+        waist_yaw_joint, waist_roll_joint, waist_pitch_joint,
+        left_shoulder_pitch_joint, left_shoulder_roll_joint, left_shoulder_yaw_joint,
+        left_elbow_joint, left_wrist_roll_joint, left_wrist_pitch_joint, left_wrist_yaw_joint,
+        right_shoulder_pitch_joint, right_shoulder_roll_joint, right_shoulder_yaw_joint,
+        right_elbow_joint, right_wrist_roll_joint, right_wrist_pitch_joint, right_wrist_yaw_joint ]
+    default_position: [ -0.2, 0.3, 0.5, 0.6, -0.27, -0.13,
+                        -0.29, -0.15, 0.27, 0.65, -0.4, 0.14,
+                        0.84, 0.0, 0.0,
+                        -0.53, 0.0, -0.37, -2.3, 0.0, -0.26, -0.13,
+                        -0.64, 0.0, 0.43, -2.0, 0.0, -0.256, 0.0 ]
+    kp: [ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+          0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+          0.0, 0.0, 0.0,
+          0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+          0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]
+    kd: [ 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
+          1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
+          1.0, 1.0, 1.0,
+          1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
+          1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 ]
+
+standby_controller:
+  ros__parameters:
+    joint_names:
+      [ left_hip_pitch_joint, left_hip_roll_joint, left_hip_yaw_joint,
+        left_knee_joint, left_ankle_pitch_joint, left_ankle_roll_joint,
+        right_hip_pitch_joint, right_hip_roll_joint, right_hip_yaw_joint,
+        right_knee_joint, right_ankle_pitch_joint, right_ankle_roll_joint,
+        waist_yaw_joint, waist_roll_joint, waist_pitch_joint,
+        left_shoulder_pitch_joint, left_shoulder_roll_joint, left_shoulder_yaw_joint,
+        left_elbow_joint, left_wrist_roll_joint, left_wrist_pitch_joint, left_wrist_yaw_joint,
+        right_shoulder_pitch_joint, right_shoulder_roll_joint, right_shoulder_yaw_joint,
+        right_elbow_joint, right_wrist_roll_joint, right_wrist_pitch_joint, right_wrist_yaw_joint ]
+    default_position: [ -0.2, 0.3, 0.5, 0.6, -0.27, -0.13,
+                        -0.29, -0.15, 0.27, 0.65, -0.4, 0.14,
+                        0.84, 0.0, 0.0,
+                        -0.53, 0.0, -0.37, -2.3, 0.0, -0.26, -0.13,
+                        -0.64, 0.0, 0.43, -2.0, 0.0, -0.256, 0.0 ]
+    kp: [ 120.0, 120.0, 120.0, 150.0, 40.0, 30.0,
+          120.0, 120.0, 120.0, 150.0, 40.0, 30.0,
+          160.0, 80.0, 80.0,
+          80.0, 40.0, 40.0, 40.0, 40.0, 40.0, 40.0,
+          80.0, 40.0, 40.0, 40.0, 40.0, 40.0, 40.0 ]
+    kd: [ 5.0, 5.0, 5.0, 5.0, 3.0, 2.0,
+          5.0, 5.0, 5.0, 5.0, 3.0, 2.0,
+          5.0, 5.0, 5.0,
+          4.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
+          4.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 ]
+
+motion_tracking_controller:
+  ros__parameters:
+    motion:
+      start_step: 0
+      loop_motion: false
+      next_controller: walking_controller
+
+stand_loop_controller:
+  ros__parameters:
+    policy:
+      path: /opt/onnx_policy/agibot/x2/controller_policies/stand_loop_policy.onnx
+    motion:
+      start_step: 0
+      loop_motion: true
+
+walking_controller:
+  ros__parameters:
+    policy:
+      path: /opt/onnx_policy/agibot/x2/controller_policies/walking_policy.onnx
+    gait_period: 1.0

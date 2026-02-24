@@ -1,0 +1,46 @@
+# Author Linter Makefile
+# 使用方法: make -f utils/Makefile.author check 或 make -f utils/Makefile.author fix
+
+PYTHON := python3
+AUTHOR_LINTER := $(shell pwd)/utils/author_linter.py
+CONFIG_FILE := $(shell pwd)/utils/author_config.yaml
+AUTHOR ?= Fulong Yin
+ORG ?= IO-AI.tech
+
+# 默认检查的目录
+SRC_DIRS ?= src include
+
+.PHONY: check fix fix-dry-run help
+
+help:
+	@echo "Author Linter Makefile 目标:"
+	@echo "  make -f utils/Makefile.author check      - 检查所有文件的作者信息"
+	@echo "  make -f utils/Makefile.author fix        - 自动修复所有文件的作者信息"
+	@echo "  make -f utils/Makefile.author fix-dry-run - 试运行修复（不实际修改文件）"
+	@echo ""
+	@echo "环境变量:"
+	@echo "  AUTHOR - 作者名称（默认: $(AUTHOR)）"
+	@echo "  ORG    - 组织名称（默认: $(ORG)）"
+	@echo "  SRC_DIRS - 要检查的目录（默认: $(SRC_DIRS)）"
+
+check:
+	@if [ -f "$(CONFIG_FILE)" ]; then \
+		$(PYTHON) $(AUTHOR_LINTER) --check --config $(CONFIG_FILE) $(SRC_DIRS); \
+	else \
+		$(PYTHON) $(AUTHOR_LINTER) --check --author "$(AUTHOR)" --org "$(ORG)" $(SRC_DIRS); \
+	fi
+
+fix:
+	@if [ -f "$(CONFIG_FILE)" ]; then \
+		$(PYTHON) $(AUTHOR_LINTER) --fix --config $(CONFIG_FILE) $(SRC_DIRS); \
+	else \
+		$(PYTHON) $(AUTHOR_LINTER) --fix --author "$(AUTHOR)" --org "$(ORG)" $(SRC_DIRS); \
+	fi
+
+fix-dry-run:
+	@if [ -f "$(CONFIG_FILE)" ]; then \
+		$(PYTHON) $(AUTHOR_LINTER) --fix --dry-run --config $(CONFIG_FILE) $(SRC_DIRS); \
+	else \
+		$(PYTHON) $(AUTHOR_LINTER) --fix --dry-run --author "$(AUTHOR)" --org "$(ORG)" $(SRC_DIRS); \
+	fi
+
